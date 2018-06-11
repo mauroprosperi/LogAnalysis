@@ -37,20 +37,52 @@ A log analysis project for Udacity, this is a reporting tool that use informatio
    ~~~
    $ vagrant ssh
    ~~~
+  5. Create the view: You can do this on two ways; 
   
+      * Uncomment the line 67 from python file that will trigger a function when executing the python file
+    
+      * Creating the view by your own, go to [accesing to the database][4]
+    
+  [4]:https://github.com/mauroprosperi/LogAnalysis#loganalysis
   
-  5. Load the database:
-  ~~~
-  psql -d news -f newsdata.sql
-  ~~~
-  6. Connect to the database:
-  ~~~
-  psql -d news
-  ~~~
-  7. Run the python file from the command line when you have the python and the SQL file 
+  6. Run the python file from the command line when you have the python and the SQL file 
+  
   ~~~
   python3 newsdb.py
   ~~~ 
+  
+## Accesing to the database:
+
+  1. Load the database:
+  ~~~
+  psql -d news -f newsdata.sql
+  ~~~
+  
+  2. Connect to the database:
+  ~~~
+  psql -d news
+  ~~~
+  
+  3. Create the followin view:
+  ~~~
+  create view geterror as select date(time) as day,
+  count(status) as total,
+  sum(case when status != '200 OK' then 1 else 0 end) as errors
+  from log
+  group by day
+  order by errors desc;
+  ~~~ 
+  
+  4. Exit from the database and go back to vagrant: 
+  ~~~
+  \q
+  or
+  ctrl + Z
+  ~~~
+  
+  5. Go and initialize the python file as showed in [instruccion][5] - part 6
+  
+  [5]:https://github.com/mauroprosperi/LogAnalysis#instruccion
   
 ## About
 
