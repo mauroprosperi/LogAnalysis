@@ -63,7 +63,7 @@ A log analysis project for Udacity, this is a reporting tool that use informatio
   psql -d news
   ~~~
   
-  3. Create the followin view:
+  3. Create the followin view(copy this into your line command):
   ~~~
   create view geterror as select date(time) as day,
   count(status) as total,
