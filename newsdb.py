@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import psycopg2
-dbname= "news"
+dbname = "news"
+
 
 def connect(dbname="news"):
     try:
@@ -10,67 +11,85 @@ def connect(dbname="news"):
         return database, c
     except:
         print("There was an error unexpected on the database, try again later")
-        
+
+
 def topArticles():
     """Prints te tops articles"""
     database, c = connect()
-    query = "select title, count(*) as views\
-    from articles, log where '/article/' || articles.slug = log.path\
-    group by articles.title\
-    order by views desc\
-    limit 3"
+    query = """
+    select title, count(*) as views
+    from articles, log where '/article/' || articles.slug = log.path
+    group by articles.title
+    order by views desc
+    limit 3
+    """
     c.execute(query)
     result = c.fetchall()
     database.close()
     print ("\nTop Articles:\n")
     for i in range(0, len(result), 1):
-      print ("\"" + result[i][0] + " - " + str(result[i][1]) + " views")
+        print ("\"" + result[i][0] + " - " + str(result[i][1]) + " views")
+
 
 def popularAuthors():
     """Prints most popular authors"""
     database, c = connect()
-    query = "select name, count(*) as views\
-    from articles, log, authors\
-    where '/article/' || articles.slug = log.path and articles.author = authors.id\
-    group by authors.name\
-    order by views desc"
+    query = """
+    select name, count(*) as views
+    from articles, log, authors
+    where '/article/' || articles.slug = log.path
+    and articles.author = authors.id\
+    group by authors.name
+    order by views desc
+    """
     c.execute(query)
     result = c.fetchall()
     database.close()
     print ("\nPopular Authors:\n")
     for i in range(0, len(result), 1):
-      print ("\"" + result[i][0] + "\" - " + str(result[i][1]) + " views")      
+        print ("\"" + result[i][0] + "\" - " + str(result[i][1]) + "views")
+
 
 def geterror():
     """Creates a view to show the error faster"""
     database, c = connect()
-    query = "create view geterror as select date(time) as day,\
-    count(status) as total,\
-    sum(case when status != '200 OK' then 1 else 0 end) as errors\
-    from log\
-    group by day\
-    order by errors desc"
+    query = """
+    create view geterror as select date(time) as day,
+    count(status) as total,
+    sum(case when status != '200 OK' then 1 else 0 end) as errors
+    from log
+    group by day
+    order by errors desc
+    """
     c.execute(query)
     database.commit()
     database.close()
 
+
 def percentualError():
     """Prints the specific day with more bugs found"""
     database, c = connect()
-    query = "select day, percent\
-    from (select day,errors,(errors::float*100)/Total::float as percent from geterror)\
-    as percent\
-    where percent >= 1"
+    query = """
+    select day, percent
+    from (select day,errors,(errors::float*100)/Total::float
+    as percent from geterror)
+    as percent
+    where percent >= 1
+    """
     c.execute(query)
     result = c.fetchall()
     database.close()
     print ("\nTop day of the month with most errors:\n")
     for i in range(0, len(result), 2):
-      print ("\"" + str(result[i][0]) + "\" - " + str(round(result[i][1],2)) + "% errors\n")   
+        print ("\"" + str(result[i][0]) + "\" - " +
+               str(round(result[i][1], 2)) + "% errors\n")
 
 
 if __name__ == "__main__":
-    """You must uncomment this function below to have the view created for percentualError:"""
+    """
+    You must uncomment this function below
+    to have the view created for percentualError:
+    """
     '''geterror()'''
     topArticles()
     popularAuthors()
