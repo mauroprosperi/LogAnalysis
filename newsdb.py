@@ -64,9 +64,10 @@ def percentualError():
     for i in range(0, len(result), 2):
       print ("\"" + str(result[i][0]) + "\" - " + str(round(result[i][1],2)) + "% errors\n")   
 
+
+if __name__ == "__main__":
 """You must uncomment this function below to have the view created for percentualError:"""
 '''geterror()'''
-
-topArticles()
-popularAuthors()
-percentualError()
+    topArticles()
+    popularAuthors()
+    percentualError()
