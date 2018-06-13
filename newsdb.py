@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 import psycopg2
 dbname= "news"
-def connect(dbname="news"):
-    """Connect to the PostgreSQL."""
-    database = psycopg2.connect("dbname={}".format(dbname))
-    c = database.cursor()
-    return database, c
 
+def connect(dbname="news"):
+    try:
+        """Connect to the PostgreSQL."""
+        database = psycopg2.connect("dbname={}".format(dbname))
+        c = database.cursor()
+        return database, c
+    except:
+        print("There was an error unexpected on the database, try again later")
+        
 def topArticles():
     """Prints te tops articles"""
     database, c = connect()
