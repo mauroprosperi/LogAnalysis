@@ -17,11 +17,15 @@ def topArticles():
     """Prints te tops articles"""
     database, c = connect()
     query = """
-    select title, count(*) as views
-    from articles, log where '/article/' || articles.slug = log.path
-    group by articles.title
-    order by views desc
-    limit 3
+    select title, views
+    from articles
+    inner join
+    (select path, count(path) as views
+    from log
+    group by log.path) as log
+    on log.path = '/article/' || articles.slug
+    order by views DESC
+    limit 3;
     """
     c.execute(query)
     result = c.fetchall()
@@ -35,10 +39,14 @@ def popularAuthors():
     """Prints most popular authors"""
     database, c = connect()
     query = """
-    select name, count(*) as views
-    from articles, log, authors
-    where '/article/' || articles.slug = log.path
-    and articles.author = authors.id\
+    select name, sum(log.views) as views
+    from authors ,articles inner join
+    (select path, count(path)
+    as views
+    from log
+    group by log.path) as log
+    on log.path = '/article/' || articles.slug
+    where articles.author = authors.id
     group by authors.name
     order by views desc
     """
@@ -47,7 +55,7 @@ def popularAuthors():
     database.close()
     print ("\nPopular Authors:\n")
     for i in range(0, len(result), 1):
-        print ("\"" + result[i][0] + "\" - " + str(result[i][1]) + "views")
+        print ("\"" + result[i][0] + "\" - " + str(result[i][1]) + " views")
 
 
 def geterror():
