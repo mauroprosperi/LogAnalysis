@@ -66,8 +66,8 @@ def percentualError():
 
 
 if __name__ == "__main__":
-"""You must uncomment this function below to have the view created for percentualError:"""
-'''geterror()'''
+    """You must uncomment this function below to have the view created for percentualError:"""
+    '''geterror()'''
     topArticles()
     popularAuthors()
     percentualError()
