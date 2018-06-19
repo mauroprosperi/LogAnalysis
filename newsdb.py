@@ -14,7 +14,7 @@ def connect(dbname="news"):
 
 
 def topArticles():
-    """Prints te tops articles"""
+    """Prints the tops articles"""
     database, c = connect()
     query = """
     select title, views
