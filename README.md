@@ -1,5 +1,5 @@
 # LogAnalysis
-A log analysis project for Udacity, this is a reporting tool that use information of a large database showing conclusions from the information, the data that we are looking for is: 
+A log analysis project for Udacity, this is a reporting tool that uses information of a large database(that contain information about articles, their authors and the view of their articles) showing conclusions from the information, the data that we are looking for is:
 
 1) What are the most popular three articles of all time 
 2) Who are the most popular article authors of all time? 
