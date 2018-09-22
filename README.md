@@ -75,9 +75,11 @@ A log analysis project for Udacity, this is a reporting tool that uses informati
   
   4. Exit from the database and go back to vagrant: 
   ~~~
-  \q
+    \q
+  ~~~
   or
-  ctrl + Z
+  ~~~
+    ctrl + Z
   ~~~
   
   5. Go and initialize the python file as showed in [instruccion][5] - part 6
