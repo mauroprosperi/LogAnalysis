@@ -22,7 +22,7 @@ A log analysis project for Udacity, this is a reporting tool that uses informati
   git clone https://github.com/mauroprosperi/LogAnalisys
   ~~~
   
-  3. Download the SQL file from [here][3]
+  3. Download the SQL file from [HERE][3]
   
   [3]:https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip
   
