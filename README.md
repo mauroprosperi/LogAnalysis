@@ -39,7 +39,7 @@ A log analysis project for Udacity, this is a reporting tool that uses informati
    ~~~
   5. Create the view: You can do this on two ways; 
   
-      * Uncomment the line 67 from python file that will trigger a function when executing the python file
+      * Uncomment the line 101 from python file that will trigger a function when executing the python file
     
       * Creating the view by your own, go to [accesing to the database][4]
     
